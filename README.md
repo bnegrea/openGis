@@ -45,13 +45,29 @@
   
   
   Future implementation and work in progress:
+  
+  
   -building and interacting with the atribute table of each layer
+  
+  
   -data upload directly from the user in different formats and the posibility to be saved in the database
+  
+  
   -better editing capabilities
+  
+  
   -better geocoding and routing implementation
+  
+  
   -improved search capabilities
+  
+  
   -query buider
+  
+  
   -analysis tool(PostGis,turf.js)
+  
+  
   
   -overall improvement and design of the interface, layers as tabs, database view
 
