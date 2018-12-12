@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Opengis</title>
+    
+    <!--************************CSS files********************-->
+    <link rel="stylesheet" href="src/leaflet.css">
+    <link rel="stylesheet" href="src/bootstrap.css">
+ 
+    <link rel="stylesheet" href="plugins/easy-button.css">
+    <link rel="stylesheet" href="plugins/MarkerCluster.css">
+    <link rel="stylesheet" href="plugins/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="plugins/L.Control.OpenCageSearch.css">
+    <link rel="stylesheet" href="plugins/Leaflet.PolylineMeasure.css">
+     <!--************************font awesome cdn********************-->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+
+
+    
+    <link rel="stylesheet" href="src/plugins/sidebar-v2-master/css/leaflet-sidebar.css">
+    
+    <!--********************JS librarys**********************-->
+    <script src="src/leaflet.js"></script>
+    <script src="pluggins/leaflet-providers.js"></script>
+    <script src="src/jquery-3.2.0.js"></script>
+    <script src="src/bootstrap.js"></script>
+    <script src="pluggins/L.Control.Sidebar.js"></script>
+    <script src="plugins/easy-button.js"></script>
+    <script src="plugins/leaflet.markercluster.js"></script>
+    <script src="plugins/L.Control.OpenCageSearch.js"></script>
+    <script src="pluggins/bundle.js"></script>
+    <script src="plugins/Leaflet.PolylineMeasure.js"></script>
+    <script src="plugins/Leaflet.PolylineMeasure.js"></script>
+     
+    <script src="src/plugins/sidebar-v2-master/js/leaflet-sidebar.js"></script>
+       
+        <!--************************Draw********************-->
+        
+    <script src="src/plugins/leaflet-draw/Leaflet.draw.js"></script>
+    <script src="src/plugins/leaflet-draw/Leaflet.Draw.Event.js"></script>
+    <link rel="stylesheet" href="src/plugins/leaflet-draw/leaflet.draw.css"/>
+
+    <script src="src/plugins/leaflet-draw/Toolbar.js"></script>
+    <script src="src/plugins/leaflet-draw/Tooltip.js"></script>
+
+    <script src="src/plugins/leaflet-draw/ext/GeometryUtil.js"></script>
+    <script src="src/plugins/leaflet-draw/src/ext/LatLngUtil.js"></script>
+    <script src="src/plugins/leaflet-draw/src/ext/LineUtil.Intersect.js"></script>
+    <script src="src/plugins/leaflet-draw/src/ext/Polygon.Intersect.js"></script>
+    <script src="src/plugins/leaflet-draw/src/ext/Polyline.Intersect.js"></script>
+    <script src="src/plugins/leaflet-draw/src/ext/TouchEvents.js"></script>
+    
+
+    <script src="src/plugins/leaflet-draw/draw/DrawToolbar.js"></script>
+    <script src="src/plugins/leaflet-draw/draw/handler/Draw.Feature.js"></script>
+    <script src="src/plugins/leaflet-draw/draw/handler/Draw.SimpleShape.js"></script>
+    <script src="src/plugins/leaflet-draw/draw/handler/Draw.Polyline.js"></script>
+    <script src="src/plugins/leaflet-draw/draw/handler/Draw.Marker.js"></script>
+    <script src="src/plugins/leaflet-draw/draw/handler/Draw.Circle.js"></script>
+    <script src="src/plugins/leaflet-draw/draw/handler/Draw.CircleMarker.js"></script>
+    <script src="src/plugins/leaflet-draw/draw/handler/Draw.Polygon.js"></script>
+    <script src="src/plugins/leaflet-draw/draw/handler/Draw.Rectangle.js"></script>
+
+
+    <script src="src/plugins/leaflet-draw/edit/EditToolbar.js"></script>
+    <script src="src/plugins/leaflet-draw/edit/handler/EditToolbar.Edit.js"></script>
+    <script src="src/plugins/leaflet-draw/edit/handler/EditToolbar.Delete.js"></script>
+
+    <script src="src/plugins/leaflet-draw/Control.Draw.js"></script>
+
+    <script src="src/plugins/leaflet-draw/edit/handler/Edit.Poly.js"></script>
+    <script src="src/plugins/leaflet-draw/edit/handler/Edit.SimpleShape.js"></script>
+    <script src="src/plugins/leaflet-draw/edit/handler/Edit.Rectangle.js"></script>
+    <script src="src/plugins/leaflet-draw/edit/handler/Edit.Marker.js"></script>
+    <script src="src/plugins/leaflet-draw/edit/handler/Edit.CircleMarker.js"></script>
+    <script src="src/plugins/leaflet-draw/edit/handler/Edit.Circle.js"></script>
+        <!--************************End draw********************-->
+
+
+    
+
+   
+  <style>  
+    #mapdiv{
+            height:100vh;}
+
+      
+    </style>    
+    
+</head>
+
+<body>
+     <div id="mapdiv" class="col-md-12"></div> 
+     <div id="sidebar" class="sidebar collapsed">
+        <!-- Nav tabs -->
+        <div class="sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+                <li><a href="#profile" role="tab"><i class="far fa-square"></i></a></li>
+                <li><a href="#messages" role="tab"><i class="fas fa-database"></i></a></li>
+                <li><a href="#messages" role="tab"><i class="fas fa-layer-group"></i></a></li>
+                <li><a href="#addlayer" role="tab"><i class="far fa-plus-square"></i></a></li>
+                <li><a href="#altceva" role="tab"><i class="fas fa-folder-plus"></i></a></li>
+                <li><a href="#addlayer" role="tab"><i class="fas fa-edit"></i></a></li>
+                <li><a href="#addlayer" role="tab"><i class="fas fa-search-location"></i></a></li>
+                <li><a href="#addlayer" role="tab"><i class="fas fa-filter"></i></i></a></li>
+            </ul>
+
+            <ul role="tablist">
+                <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
+            </ul>
+        </div>
+
+        <!-- Tab panes -->
+        <div class="sidebar-content">
+            <div class="sidebar-pane" id="home">
+                <h1 class="sidebar-header">
+                    &ltopen&gtGIS
+                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+
+                <p></p>
+
+                <p class="baseLayer_OpenTopoMap"></p>
+
+                <p class="lorem"></p>
+
+                <p class="lorem"></p>
+
+                <p class="lorem"></p>
+            </div>
+
+            <div class="sidebar-pane" id="Set work area">
+                <h1 class="sidebar-header">Set area:<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+            </div>
+
+            <div class="sidebar-pane" id="messages">
+                <h1 class="sidebar-header">Messages<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+            </div>
+
+            <div class="sidebar-pane" id="settings">
+                <h1 class="sidebar-header">Settings<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+            </div>
+        </div>
+    </div>
+    
+  
+
+
+
+ 
+  
+  <script>
+      //************global variables**************
+      var baseMaps;
+      var overlayMaps;
+      var baseLayer_hyda;
+      var baseLayer_OpenTopoMap;
+      var buttonSideBar;
+      
+      
+      
+      var controlSideBar;
+      var ctlDraw;
+      var controlSearch;
+      
+      
+      var kommune;
+      var lyr_kommune;
+      var region;
+      var lyr_region;
+      var layerControl;
+     
+      var stationer;
+      var lyr_stationer;
+      
+      var lines;
+      var lyr_lines;
+      
+      var lyr_MarkerCluster;
+      
+      var bbox;
+      var lyr_bbox;
+      
+       
+  //**************map initialisation**********************
+      var mymap=L.map('mapdiv',{center:[55.329967,10.983444 ],zoom:10,zoomControl:false});
+      
+  //var mymap=L.map('mapdiv').setView([55.68,12.55 ],10,{zoom:18,zoomControl:false});
+    //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',).addTo(mymap);
+     
+//******************Base maps declaration and adding them to the map*************
+      baseLayer_hyda=L.tileLayer.provider('Hydda.Full').addTo(mymap);
+      baseLayer_OpenTopoMap=L.tileLayer.provider('Esri.WorldImagery').addTo(mymap);
+      
+      var baseMaps={
+          "hyda":baseLayer_hyda,
+          "Imagery":baseLayer_OpenTopoMap
+      };
+    layerControl=L.control.layers(baseMaps).addTo(mymap);
+      
+    lyr_MarkerCluster=L.markerClusterGroup();
+      
+    testMarker=L.marker([55.329967,10.983444],{draggable:true} ).addTo(mymap);
+    testMarker.bindTooltip(testMarker.getLatLng().toString());
+    testMarker.on('dragend',function(){
+       testMarker.setTooltipContent(testMarker.getLatLng().toString()); 
+    });
+    
+      
+  
+
+      
+      
+      
+      
+ //*************************Sidebar control**************************
+    controlSideBar=L.control.sidebar('sidebar').addTo(mymap);
+      
+//**************************Zoom control*****************************      
+    controlZoom=L.control.zoom({position:'topright'}).addTo(mymap);  
+      
+      
+ //*******************************draw plugin*************************************************** 
+       mymap.addControl(new L.Control.Draw({position: 'topright'}));
+      mymap.on(L.Draw.Event.CREATED, function (event) {
+        var layer = event.layer;
+
+        drawnItems.addLayer(layer);
+    });
+
+      
+      
+      drawnItems = L.featureGroup().addTo(mymap);
+      layerControl.addOverlay(drawnItems,"Layer Edit");
+
+//****************creating a bounding box, and format the coordinates as a string for postgis**********
+      
+      mymap.on('draw:created', function (e) {
+
+                var type = e.layerType,
+                layer = e.layer;
+          //geting the coordiates from the rectangle as string
+                if (type === 'rectangle') {
+                    var coords = layer.getLatLngs().toString();
+                    var str =coords;
+           //removing unncecesary parts         
+                    var res = str.replace(/LatLng/g,"");
+                    var i = 0, length = res.length;
+                        for (i; i < length; i++) {
+                            res = res.replace("(","");
+                            res = res.replace(")","");
+                            res = res.replace(","," ");
+                    }
+            //removing comas, and duplicationg first element as the last one for postgis
+                    var first_lat="";
+                    var first_long="";
+                    var first_lat_lng="";
+                    var i = 0, length = res.length;
+                        for (i; i <length; i++) {
+                            res = res.replace("(","");
+                            res = res.replace(")","");
+                            res = res.replace(","," ");
+                    }
+                    //console.log(res);
+                    
+                    //first_lat=res.slice(0,  9);
+                    first_lat_lng=res.match(/^(\d+\.\d+)\s\s(\d+\.\d+)/);
+                    first_lat_lng=first_lat_lng[0].toString();
+                    //first_lat_lng=first_lat_lng.replace("  "," ");
+                    //console.log(first_lat_lng);
+
+                    
+            // adding comas and spaces:  lat long,lat long, lat long
+            
+                    res=res+" "+first_lat_lng;
+
+                    res=res.replace(/\s/g,",");
+                    res=res.replace(/\,\,/g," ");
+                    //console.log(res);
+                    
+                    
+                    
+                   $.ajax({url:'load_bbox.php',
+                        data:{db_table:'stationer',bbox_coord:res},
+                        type:'POST',
+                        success: function(response){
+                        bbox=JSON.parse(response);
+               
+                        lyr_bbox= L.geoJSON(bbox);
+                        //lyr_kommune.addTo(mymap);
+                
+                        layerControl.addOverlay(lyr_bbox,"bbox stations");
+     
+
+      },
+                        error: function(xhr,status,error){
+                                alert("error: "+ error)
+              }
+            
+      }); 
+                    
+                    
+        
+                    
+                    
+                   // $.ajax({url:'loadbbox.php',    
+                       // success: function(response){
+                      //  bbox=JSON.parse(response);
+               
+                      //  lyr_bbox= L.geoJSON(bbox);
+                     //       console.log(lyr_bbox);
+                        //lyr_bbox.addTo(mymap);
+                    //    layerControl.addOverlay(lyr_bbox,"bbox");
+   //   },
+      //        error: function(xhr,status,error){
+         //         alert("error: "+ error)
+          //    }
+   //   });
+      
+        
+                
+                    };
+             // if a BBox is created the data is added to the map for the BBox extent       
+    
+
+        });
+      
+      
+
+     
+
+      
+      
+      
+      
+// *******************************search plugin*****************************
+    
+controlSearch = L.Control.openCageSearch({key: 'b266f3972ebc451a88583014bb645f88',limit: 10}).addTo(mymap);
+  // print plugin **************************************************************'
+      var printer = L.easyPrint({
+      		tileLayer: null,
+      		sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
+      		filename: 'myMap',
+      		exportOnly: true,
+      		hideControlContainer: true,
+            position:'bottomright'
+      }).addTo(mymap);
+// measure plugin************************************************************************'
+      L.control.polylineMeasure({position: 'topright'}).addTo(mymap);
+     
+      
+     
+ // Loading overlay layers from database********************************************************
+ 
+
+      
+      $.ajax({url:'load_kommune.php', 
+              success: function(response){
+                kommune=JSON.parse(response);
+               
+                lyr_kommune= L.geoJSON(kommune,{"color": "#000000", "weight": 3,"opacity": 0.65});
+                //lyr_kommune.addTo(mymap);
+                layerControl.addOverlay(lyr_kommune,"kommune");
+      },
+              error: function(xhr,status,error){
+                  alert("error: "+ error)
+              }
+      });
+      $.ajax({url:'load_region.php',    
+              success: function(response){
+                region=JSON.parse(response);
+               
+                lyr_region= L.geoJSON(region);
+                //lyr_kommune.addTo(mymap);
+                layerControl.addOverlay(lyr_region,"region");
+      },
+              error: function(xhr,status,error){
+                  alert("error: "+ error)
+              }
+      });
+               
+      $.ajax({url:'load_stationer.php', 
+              success: function(response){
+                stationer=JSON.parse(response);
+               
+                lyr_stationer= L.geoJSON(stationer,{pointToLayer:returnMarkerStyle});
+                //lyr_kommune.addTo(mymap);
+                lyr_MarkerCluster.addLayer(lyr_stationer);
+                layerControl.addOverlay(lyr_MarkerCluster,"Train Stations");
+     
+
+      },
+              error: function(xhr,status,error){
+                  alert("error: "+ error)
+              }
+            
+      });
+      
+      
+ //*****************generalizing data load from database*******************   
+      $.ajax({url:'load_test.php',
+              data:{db_table:'sportyper',query_select_fields:"sportypete"},
+              type:'POST',
+              success: function(response){
+                lines=JSON.parse(response);
+               
+                lyr_lines= L.geoJSON(lines);
+                //lyr_kommune.addTo(mymap);
+                
+                layerControl.addOverlay(lyr_lines,"Train Lines");
+     
+
+      },
+              error: function(xhr,status,error){
+                  alert("error: "+ error)
+              }
+            
+      });
+      
+      
+                 
+      
+      
+      
+      
+  
+      
+//*******************'******'global functions*********************************
+   function returnMarkerStyle(json,latlng){
+        var att=json.properties;
+          if (att.afsnitstyp=='Trinbraet'){
+              var colorStation='blue';
+          }else{
+              if (att.afsnitstyp=='Station'){
+              var colorStation='red';
+          }else{
+              if (att.afsnitstyp=='Teknisk Station'){
+              var colorStation='yellow';
+          }else{
+              if (att.afsnitstyp=='Kombiterminal'){
+              var colorStation='green';
+          }
+          }}}
+          
+            return L.circleMarker(latlng,{radius:10,color:colorStation}).bindTooltip("<h4>type: "+att.afsnitstyp+ "</h4><br> <h4>Location: "+att.navn+"</h4>");
+          //return L.circleMarker(latlng,{radius:10,color:'deeppink'});
+      };
+      
+ 
+      
+  </script> 
+    
+</body>
+</html>
