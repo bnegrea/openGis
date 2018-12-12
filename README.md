@@ -12,5 +12,27 @@
 -Plugins: EasyButton,OpenCageSearch,LeafletMarkerCluster,leafletPolylineMeasure,LealfetDraw,sidebar-v2,Leaflet-ajax,leaflet-providers,jquery
   
   
+ Interface:
   
+  ![](/InterfaceImg/1.jpg
+  
+
+  ![](/InterfaceImg/3.jpg)
+
+
+  ![](/InterfaceImg/4.jpg)
+
+
+  ![](/InterfaceImg/5.jpg)
+
+
+  ![](/InterfaceImg/6.jpg)
+
+
+  ![](/InterfaceImg/7.jpg)
+
+
   ![](/InterfaceImg/1.jpg)
+
+  
+  
