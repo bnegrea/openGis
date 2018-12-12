@@ -62,7 +62,7 @@
   -improved search capabilities
   
   
-  -query buider
+  -query builder
   
   
   -analysis tool(PostGis,turf.js)
