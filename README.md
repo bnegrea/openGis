@@ -3,7 +3,10 @@
 
 openGIS is my ongoing project for creating an Open-Source WebGis application that can replicate the functionality of a stand-alone desktop software but in a browser. A mobile data collection tool using GPS is also a part of the project. 
 
-![](/InterfaceImg/architecture.png)
+<p align="center">
+  ![](/InterfaceImg/architecture.png)
+</p>
+
 
 The main system components are the browser (client), the web server and the database (image above).
 The client makes the request to the server using AJAX, which using PHP sends the request to the database and receives the response as data which is send back to the client using again AJAX.
