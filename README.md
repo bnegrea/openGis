@@ -33,14 +33,15 @@ After setting a work area (the user can draw a polygon representing the area, ch
 
 
 • options for styling the data( images below) 
-![](/InterfaceImg/1.jpg)
 
-![](/InterfaceImg/2.jpg)
+![](/InterfaceImg/1.png)
+
+![](/InterfaceImg/2.png)
 
 • Data editing capabilities 
 
 
 • Digitalization of data( image below)
 
-![](/InterfaceImg/3.jpg)
+![](/InterfaceImg/3.png)
 
