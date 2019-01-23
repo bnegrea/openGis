@@ -3,9 +3,9 @@
 
 openGIS is my ongoing project for creating an Open-Source WebGis application that can replicate the functionality of a stand-alone desktop software but in a browser. A mobile data collection tool using GPS is also a part of the project. 
 
-<p align="center">
-  ![](/InterfaceImg/architecture.png)
-</p>
+
+![](/InterfaceImg/architecture.png)
+
 
 
 The main system components are the browser (client), the web server and the database (image above).
@@ -19,6 +19,7 @@ I have also tried to design a workflow when choosing working data by bringing it
 
 
 After setting a work area (the user can draw a polygon representing the area, choose the full extent of the data or select the administrative limits as working area), a list of available data is queried to the database, the attribute tables for each dataset can be visualized and data can be added to the map. 
+
 
 ![](/InterfaceImg/workflow.png)
 
