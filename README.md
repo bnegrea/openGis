@@ -1,77 +1,46 @@
 # openGis
-#openGis is ongoing project for creating a WebGis application using open source technologies that ca be used a lightweight allpurpose Gis software(data visualisation, map creation, data editing, import and export of data) using only one interface that connects multiple technologies. 
 
-##Components and languages used: 
 
--Database-PostgreSQL+PostGis--SQL
+openGIS is my ongoing project for creating an Open-Source WebGis application that can replicate the functionality of a stand-alone desktop software but in a browser. A mobile data collection tool using GPS is also a part of the project. 
 
--Front end: Leaflet as mapping library -HTML,CSS,JavaScript
+![](/InterfaceImg/System architecture.png)
 
--Server side: PHP
+The main system components are the browser (client), the web server and the database (image above).
+The client makes the request to the server using AJAX, which using PHP sends the request to the database and receives the response as data which is send back to the client using again AJAX.
 
--Plugins: EasyButton,OpenCageSearch,LeafletMarkerCluster,leafletPolylineMeasure,LealfetDraw,sidebar-v2,Leaflet-ajax,leaflet-providers,jquery
-  
-  
- Interface:
+
+In order to replicate the functionality of a desktop GIS software, a key element I am trying to implement is the system’s ability to dynamically work with data. This means that instead of having a predefined amount of data, the application should dynamically adapt to the changes in database and try and accommodate data with different geometries, projections and attributes.
+
+
+I have also tried to design a workflow when choosing working data by bringing it to the map based on a specific location or area in order to reduce the computational load on the client side (image above).
+
+
+After setting a work area (the user can draw a polygon representing the area, choose the full extent of the data or select the administrative limits as working area), a list of available data is queried to the database, the attribute tables for each dataset can be visualized and data can be added to the map. 
+
+![](/InterfaceImg/workflow.png)
+
+
+ Future improvements and work in progress: 
  
-  Basic Interface
-  
-  ![](/InterfaceImg/1.jpg)
-  
-  Choosing between different base maps and left menu retractable side bar on the way
-  
-  ![](/InterfaceImg/2.jpg)
-  
-  Visualisation and styling of data stored in the database(here data showing administrative limits, and train station locations represented as interactive clusters)
-
-  ![](/InterfaceImg/3.jpg)
-  
-  Symbology changed at a larger scale, more data added to the map(here representing train lines) and atributes displayed when mouse pointer hoovers on top of the point data
-
-  ![](/InterfaceImg/4.jpg)
-  
-  Draw capabilities
-
-  ![](/InterfaceImg/5.jpg)
-  
-  For performance optimisation, user can select a "working area" as a polygon and te data added is restricted to the polygon boundaries.
-
-  ![](/InterfaceImg/6.jpg)
-  
-  Same data as before (train stations) is added to the "working area" whithout any styling or clustering
-
-  ![](/InterfaceImg/7.jpg)
-  
-  
-  
-  Future implementation and work in progress:
-  
-  
-  -building and interacting with the atribute table of each layer
-  
-  
-  -data upload directly from the user in different formats and the posibility to be saved in the database
-  
-  
-  -better editing capabilities
-  
-  
-  -better geocoding and routing implementation
-  
-  
-  -improved search capabilities
-  
-  
-  -query builder
-  
-  
-  -analysis tool(PostGis,turf.js)
-  
-  
-  
-  -overall improvement and design of the interface, layers as tabs, database view
+ 
+• uploading data from user’s computer in different formats and saving it to the database( formats such as GPX for surveyed points, SHP or GeoJson)
 
 
+• query builder where SQL queries can be built using a graphical user interface directly from the browser giving the possibility to perform spatial analysis using the tools provided by PostGis 
 
-  
-  
+
+• better geocoding 
+
+
+• options for styling the data( images below) 
+![](/InterfaceImg/1.jpg)
+
+![](/InterfaceImg/2.jpg)
+
+• Data editing capabilities 
+
+
+• Digitalization of data( image below)
+
+![](/InterfaceImg/3.jpg)
+
