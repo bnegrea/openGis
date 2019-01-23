@@ -1,0 +1,303 @@
+<script src="pluggins/Leaflet.draw-develop/src/edit/EditToolbar.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/edit/handler/Edit.Circle.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/edit/handler/Edit.CircleMarker.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/edit/handler/Edit.Marker.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/edit/handler/Edit.Poly.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/edit/handler/Edit.SimpleShape.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/edit/handler/Edit.Rectangle.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/edit/handler/EditToolbar.Delete.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/edit/handler/EditToolbar.Edit.js"></script>
+    
+    
+        <link rel="stylesheet" href="pluggins/Leaflet.draw-develop/src/leaflet.draw.css">
+
+    <script src="pluggins/Leaflet.draw-develop/src/Control.Draw.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/copyright.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/Leaflet.Draw.Event.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/Leaflet.draw.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/Toolbar.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/Tooltip.js"></script>
+       
+    <script src="pluggins/Leaflet.draw-develop/src/ext/GeometryUtil.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/ext/LatLngUtil.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/ext/LineUtil.Intersect.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/ext/Polygon.Intersect.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/ext/Polyline.Intersect.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/ext/TouchEvents.js"></script>
+    
+
+    <script src="pluggins/Leaflet.draw-develop/src/draw/DrawToolbar.js"></script>   
+    <script src="pluggins/Leaflet.draw-develop/src/draw/handler/Draw.Circle.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/draw/handler/Draw.CircleMarker.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/draw/handler/Draw.Feature.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/draw/handler/Draw.Marker.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/draw/handler/Draw.Polygon.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/draw/handler/Draw.Polyline.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/draw/handler/Draw.Rectangle.js"></script>
+    <script src="pluggins/Leaflet.draw-develop/src/draw/handler/Draw.SimpleShape.js"></script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="container-fluid">
+  <nav class="navbar navbar-light col-md-12" style="background-color: #e3f2fd">
+    <a class="navbar-brand col-md 3 mr-0">openGis</a>
+    <button type="button" class="btn btn-dark">Edit mode</button>
+    <button type="button" class="btn btn-dark">Add layer</button>
+
+    </nav>
+  <div class="row">
+       <div id="sidebar" class= "col-md-3" style="background-color: #e3f2fd"></div>
+       <div id="mapdiv" class="col-md-9"></div> 
+   </div>
+    
+  
+</div>
+
+
+
+
+
+mymap.on('draw:created', function (e) {
+
+                var type = e.layerType,
+                layer = e.layer;
+          //geting the coordiates from the rectangle as string
+                if (type === 'rectangle') {
+                    var coords = layer.getLatLngs().toString();
+                    var str =coords;
+           //removing unncecesary parts         
+                    var res = str.replace(/LatLng/g,"");
+                    var i = 0, length = res.length;
+                        for (i; i < length; i++) {
+                            res = res.replace("(","");
+                            res = res.replace(")","");
+                            res = res.replace(","," ");
+                    }
+            //removing comas, and duplicationg first element as the last one for postgis
+                    var first_lat="";
+                    var first_long="";
+                    var first_lat_lng="";
+                    var i = 0, length = res.length;
+                        for (i; i <length; i++) {
+                            res = res.replace("(","");
+                            res = res.replace(")","");
+                            res = res.replace(","," ");
+                    }
+                    //console.log(res);
+                    
+                    //first_lat=res.slice(0,  9);
+                    first_lat_lng=res.match(/^(\d+\.\d+)\s\s(\d+\.\d+)/);
+                    first_lat_lng=first_lat_lng[0].toString();
+                    //first_lat_lng=first_lat_lng.replace("  "," ");
+                    //console.log(first_lat_lng);
+
+                    
+            // adding comas and spaces:  lat long,lat long, lat long
+            
+                    res=res+" "+first_lat_lng;
+
+                    res=res.replace(/\s/g,",");
+                    res=res.replace(/\,\,/g," ");
+                    //console.log(res);
+                    
+                    
+                    
+                   $.ajax({url:'load_bbox.php',
+                        data:{db_table:'stationer',bbox_coord:res},
+                        type:'POST',
+                        success: function(response){
+                        bbox=JSON.parse(response);
+               
+                        lyr_bbox= L.geoJSON(bbox);
+                        //lyr_kommune.addTo(mymap);
+                
+                        layerControl.addOverlay(lyr_bbox,"bbox stations");
+     
+
+      },
+                        error: function(xhr,status,error){
+                                alert("error: "+ error)
+              }
+            
+      }); 
+                    
+                    
+        
+                    
+                    
+                   // $.ajax({url:'loadbbox.php',    
+                       // success: function(response){
+                      //  bbox=JSON.parse(response);
+               
+                      //  lyr_bbox= L.geoJSON(bbox);
+                     //       console.log(lyr_bbox);
+                        //lyr_bbox.addTo(mymap);
+                    //    layerControl.addOverlay(lyr_bbox,"bbox");
+   //   },
+      //        error: function(xhr,status,error){
+         //         alert("error: "+ error)
+          //    }
+   //   });
+      
+        
+                
+                    };
+             // if a BBox is created the data is added to the map for the BBox extent       
+    
+
+        });
+      
+      
+
+     
+
+      
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+      
+      $.ajax({url:'load_kommune.php', 
+              success: function(response){
+                kommune=JSON.parse(response);
+               
+                lyr_kommune= L.geoJSON(kommune,{"color": "#000000", "weight": 3,"opacity": 0.65});
+                //lyr_kommune.addTo(mymap);
+                layerControl.addOverlay(lyr_kommune,"kommune");
+      },
+              error: function(xhr,status,error){
+                  alert("error: "+ error)
+              }
+      });
+      $.ajax({url:'load_region.php',    
+              success: function(response){
+                region=JSON.parse(response);
+               
+                lyr_region= L.geoJSON(region);
+                //lyr_kommune.addTo(mymap);
+                layerControl.addOverlay(lyr_region,"region");
+      },
+              error: function(xhr,status,error){
+                  alert("error: "+ error)
+              }
+      });
+               
+      $.ajax({url:'load_stationer.php', 
+              success: function(response){
+                stationer=JSON.parse(response);
+               
+                lyr_stationer= L.geoJSON(stationer,{pointToLayer:returnMarkerStyle});
+                //lyr_kommune.addTo(mymap);
+                lyr_MarkerCluster.addLayer(lyr_stationer);
+                layerControl.addOverlay(lyr_MarkerCluster,"Train Stations");
+     
+
+      },
+              error: function(xhr,status,error){
+                  alert("error: "+ error)
+              }
+            
+      });
+      
+      
+ //*****************generalizing data load from database*******************   
+      $.ajax({url:'load_test.php',
+              data:{db_table:'sportyper',query_select_fields:"sportypete"},
+              type:'POST',
+              success: function(response){
+                lines=JSON.parse(response);
+               
+                lyr_lines= L.geoJSON(lines);
+                //lyr_kommune.addTo(mymap);
+                
+                layerControl.addOverlay(lyr_lines,"Train Lines");
+     
+
+      },
+              error: function(xhr,status,error){
+                  alert("error: "+ error)
+              }
+            
+      });
+      
+      
+                 
+      
+      
+      
+      
+  
+      
+//*******************'******'global functions*********************************
+   function returnMarkerStyle(json,latlng){
+        var att=json.properties;
+          if (att.afsnitstyp=='Trinbraet'){
+              var colorStation='blue';
+          }else{
+              if (att.afsnitstyp=='Station'){
+              var colorStation='red';
+          }else{
+              if (att.afsnitstyp=='Teknisk Station'){
+              var colorStation='yellow';
+          }else{
+              if (att.afsnitstyp=='Kombiterminal'){
+              var colorStation='green';
+          }
+          }}}
+          
+            return L.circleMarker(latlng,{radius:10,color:colorStation}).bindTooltip("<h4>type: "+att.afsnitstyp+ "</h4><br> <h4>Location: "+att.navn+"</h4>");
+          //return L.circleMarker(latlng,{radius:10,color:'deeppink'});
+      };
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+         $returnCheckBox="<form>";
+        $returnCheckBox.="<br>";
+                $id2=strval($check_box_name)."2";
+                //echo $id2;
+                $returnCheckBox.="<div><input type='checkbox' id='{$check_box_name}' checked='checked' class='selectCheck'><h6 class='inline' id='{$id2}'>{$check_box_name}</h6></div>";
+                //$returnTable.="<td><button class='tabledb' dataid='{$value}'>view att table</button></td>";
+                //$returnCheckBox.="<td><i class='viewTableDb fas fa-table' dataId='{$value}'></i></td><td><i class='addTableDb fas fa-plus-circle' tableID='{$value}'></i></td>";
+        $returnCheckBox.="<br>";
+    $returnCheckBox.="</form>";
+    echo $returnCheckBox;
+      

@@ -6,21 +6,24 @@
         
     
     
-    $dsn = "pgsql:host=localhost;dbname=test4;port=5432";
+    $dsn = "pgsql:host=localhost;dbname=;port=";
     $opt = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false
     ];
-    $pdo = new PDO($dsn, 'postgres', 'postgres', $opt);
+    $pdo = new PDO($dsn, '', '', $opt);
    
-    
+    $initialSRID=$pdo->query("select ST_SRID(geom) from {$table} limit 1;");
+
+    foreach($initialSRID as $srid) $getSRID=implode($srid);
+
     $result=$pdo->query("select *, ST_AsGeoJSON(St_Transform((ST_Intersection(\"{$table}\".\"geom\",(ST_Transform(ST_GeomFromText
-(St_asText(ST_FlipCoordinates('POLYGON (({$bbox_coord}))')),4326),3044)))),4326))
+(St_asText(ST_FlipCoordinates('POLYGON (({$bbox_coord}))')),4326),{$getSRID})))),4326))
 		   as geojson from {$table} where
 		   
 		   ST_Intersects(\"{$table}\".\"geom\",(ST_Transform(ST_GeomFromText
-(St_asText(ST_FlipCoordinates('POLYGON (({$bbox_coord}))')),4326),3044)));");  
+(St_asText(ST_FlipCoordinates('POLYGON (({$bbox_coord}))')),4326),{$getSRID})));");  
     
     
     $features=[];
@@ -33,7 +36,4 @@
     };
     $featureCollection=["type"=>"FeatureCollection","features"=>$features];
     echo json_encode($featureCollection);
-
-
-
 ?>
